@@ -3,6 +3,8 @@ package jpql;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 public class JpaMain {
 
     public static void main(String[] args) {
@@ -26,6 +28,14 @@ public class JpaMain {
             //결과가 하나로 명확할때 ,하나 이상일때는 query.getResultList()
             Member result = query.getSingleResult();
             System.out.println("result = " + result);
+
+            //페이징 API
+            String jpql = "select m from Member m order by m.name desc";
+            List<Member> resultList = em.createQuery(jpql, Member.class)
+                    .setFirstResult(10) // 10부터 시작
+                    .setMaxResults(20) //20개의 결과가 출력되게
+                    .getResultList();
+
 
 
             tx.commit();
