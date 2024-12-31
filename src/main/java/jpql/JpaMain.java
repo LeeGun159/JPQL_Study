@@ -79,6 +79,13 @@ public class JpaMain {
                     System.out.println("=> member = " + member);
                 }
             }
+            //Named 쿼리
+            em.createQuery("Member.findByUsername", Member.class)
+                    .setParameter("username", "회원1")
+                    .getResultList();
+            for (Member member : resultList) {
+                System.out.println("member =" + member);
+            }
 
             tx.commit();
         } catch (Exception e) {
